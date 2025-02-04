@@ -1,3 +1,4 @@
+
 name: API Testing with Postman
 
 on:
@@ -7,6 +8,8 @@ on:
   pull_request:
     branches:
       - main  # Runs tests on PRs to 'main'
+  workflow_dispatch:  # Enables manual triggering
+
 
 jobs:
   postman_tests:
