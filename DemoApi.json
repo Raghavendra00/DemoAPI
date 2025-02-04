@@ -77,7 +77,7 @@
 					"raw": "{\"id\": {{postId}}, \"title\": \"updated title\", \"body\": \"updated body\", \"userId\": {{userId}}}"
 				},
 				"url": {
-					"raw": "{{baseUrl}}/posts/1",
+					"raw": "{{baseUrl}}/posts/2",
 					"host": [
 						"{{baseUrl}}"
 					],
