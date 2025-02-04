@@ -1,37 +1,18 @@
+name: Automated API tests using Postman CLI
 
-name: API Testing with Postman
-
-on:
-  push:
-    branches:
-      - main  # Runs tests when code is pushed to 'main'
-  pull_request:
-    branches:
-      - main  # Runs tests on PRs to 'main'
-  workflow_dispatch:  # Enables manual triggering
+on: push
 
 
 jobs:
-  postman_tests:
-    runs-on: ubuntu-latest
-    
+  automated-api-tests:
+    runs-on: windows-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18' # Use latest stable version
-
-      - name: Install Newman
-        run: npm install -g newman newman-reporter-html
-
-      - name: Run Postman Collection
-        run: newman run Demoapi.json --reporter-html-export newman-report.html
-
-      - name: Upload Test Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: Postman Test Report
-          path: newman-report.html
+      - uses: actions/checkout@v4
+      - name: Install Postman CLI
+        run: |
+          powershell.exe -NoProfile -InputFormat None -ExecutionPolicy AllSigned -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://dl-cli.pstmn.io/install/win64.ps1'))"
+      - name: Login to Postman CLI
+        run: postman login --with-api-key PMAK-67a1a8fc2d82ae0001f3ed6a-8ab7fc8f9eea2b837ccbfebc9741d745e6
+      - name: Run API tests
+        run: |
+          postman collection run "19325478-aa2dd521-f08b-4bd6-b12b-b3d8f88d1c85" -e "19325478-d7596da3-e5bf-4923-ad84-9d5465587f62"
